@@ -1,5 +1,6 @@
 const express = require('express');
 const mysql = require('mysql2');
+const Sequelize = require('./config/connection');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -9,9 +10,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.json({
-      message: 'Hello World'
-    });
+  res.json({
+    message: 'Hello World'
+  });
 });
 
 // Default response for any other request (Not Found)

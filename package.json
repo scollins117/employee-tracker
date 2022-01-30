@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/scollins117/employee-tracker#readme",
   "dependencies": {
+    "dotenv": "^14.3.2",
     "express": "^4.17.2",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.15.0"
   }
 }
