@@ -14,19 +14,19 @@ app.use(express.json());
 app.use('/api', apiRoutes);
 
 // display all departments
-db.query(`SELECT * FROM departments`, (err, rows) => {
-  console.table(rows);
-});
+// db.query(`SELECT * FROM departments`, (err, rows) => {
+//   console.table(rows);
+// });
 
 // display all roles
-db.query(`SELECT * FROM roles`, (err, rows) => {
-  console.table(rows);
-});
+// db.query(`SELECT * FROM roles`, (err, rows) => {
+//   console.table(rows);
+// });
 
 // display all employees
-db.query(`SELECT * FROM employees`, (err, rows) => {
-  console.table(rows);
-});
+// db.query(`SELECT * FROM employees`, (err, rows) => {
+//   console.table(rows);
+// });
 
 // add a department
 // const sql = `INSERT INTO departments (department_name) 
@@ -45,6 +45,11 @@ app.use((req, res) => {
   res.status(404).end();
 });
 
-app.listen(PORT, () => {
+// Start server after DB connection
+db.connect(err => {
+  if (err) throw err;
+  console.log('Database connected.');
+  app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
+  });
 });
