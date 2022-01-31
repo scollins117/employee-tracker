@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const db = require('../../db/connection');
 
-// Get all departments
-router.get('/departments', (req, res) => {
-    const sql = `SELECT * FROM departments`;
+// get all roles
+router.get('/roles', (req, res) => {
+    const sql = `SELECT * FROM roles`;
   
     db.query(sql, (err, rows) => {
       if (err) {
@@ -18,9 +18,9 @@ router.get('/departments', (req, res) => {
     });
 });
   
-// Get a single department
-router.get('/department/:id', (req, res) => {
-    const sql = `SELECT * FROM departments WHERE id = ?`;
+// Get a single role
+router.get('/role/:id', (req, res) => {
+    const sql = `SELECT * FROM roles WHERE id = ?`;
     const params = [req.params.id];
   
     db.query(sql, params, (err, row) => {
@@ -34,10 +34,10 @@ router.get('/department/:id', (req, res) => {
       });
     });
 });
-
-// Delete a department
-router.delete('/department/:id', (req, res) => {
-    const sql = `DELETE FROM departments WHERE id = ?`;
+  
+// Delete a role
+router.delete('/role/:id', (req, res) => {
+    const sql = `DELETE FROM roles WHERE id = ?`;
     const params = [req.params.id];
   
     db.query(sql, params, (err, result) => {
@@ -45,7 +45,7 @@ router.delete('/department/:id', (req, res) => {
         res.statusMessage(400).json({ error: res.message });
       } else if (!result.affectedRows) {
         res.json({
-          message: 'Department not found'
+          message: 'Role not found'
         });
       } else {
         res.json({
@@ -56,12 +56,12 @@ router.delete('/department/:id', (req, res) => {
       }
     });
 });
-
-// create a department
-router.post('/department', ({ body }, res) => {
-    const sql = `INSERT INTO departments (department_name)
-    VALUES (?)`;
-    const params = [body.department_name];
+  
+// create a role
+router.post('/role', ({ body }, res) => {
+    const sql = `INSERT INTO roles (title, salary, department_id)
+    VALUES (?,?,?)`;
+    const params = [body.title, body.salary, body.department_id];
   
     db.query(sql, params, (err, result) => {
       if (err) {
