@@ -110,6 +110,29 @@ app.get('/api/employee/:id', (req, res) => {
   });
 });
 
+// Update a candidate's party
+app.put('/api/employee/:id', (req, res) => {
+  const sql = `UPDATE employees SET role_id = ? 
+               WHERE id = ?`;
+  const params = [req.body.role_id, req.params.id];
+  db.query(sql, params, (err, result) => {
+    if (err) {
+      res.status(400).json({ error: err.message });
+      // check if a record was found
+    } else if (!result.affectedRows) {
+      res.json({
+        message: 'Employee not found'
+      });
+    } else {
+      res.json({
+        message: 'success',
+        data: req.body,
+        changes: result.affectedRows
+      });
+    }
+  });
+});
+
 // Delete a department
 app.delete('/api/department/:id', (req, res) => {
   const sql = `DELETE FROM departments WHERE id = ?`;
